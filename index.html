@@ -21,25 +21,35 @@
 
     <!-- Custom Styles -->
     <style>
+        :root {
+            --color-primary: #B71C1C; /* A deeper, more professional red */
+            --color-primary-light: rgba(183, 28, 28, 0.1);
+            --color-highlight: #F59E0B; /* A rich amber/gold */
+            --color-highlight-light: rgba(245, 158, 11, 0.2);
+            --color-dark: #212529;
+            --color-body: #495057;
+            --color-light-gray: #f8f9fa;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f8fa; /* Softer background */
+            background-color: var(--color-light-gray);
+            color: var(--color-body);
         }
-        /* NEW Vibrant Red Color Palette */
-        .accent-color { color: #E53935; } /* Ruby Red */
-        .bg-accent-color { background-color: #E53935; }
-        .border-accent-color { border-color: #E53935; }
-        .ring-accent-color:focus { ring: 2px solid #E53935; }
+        
+        .accent-color { color: var(--color-primary); }
+        .bg-accent-color { background-color: var(--color-primary); }
+        .border-accent-color { border-color: var(--color-primary); }
+        .ring-accent-color:focus, .ring-accent-color:focus-within { ring: 2px solid var(--color-primary); }
 
-        .highlight-color { color: #F97316; } /* Vibrant Orange for highlights */
-        .bg-highlight-color { background-color: #FDBA74; } /* Lighter Orange for backgrounds */
+        .highlight-color { color: var(--color-highlight); }
 
         html { scroll-behavior: smooth; }
 
         /* --- Scroll Animation --- */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
         .reveal.visible {
@@ -50,20 +60,20 @@
         /* --- Hero Section Background --- */
         .hero-bg {
             background-color: #ffffff;
-            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
-            background-size: 2rem 2rem;
+            background-image: radial-gradient(#e9ecef 1px, transparent 1px);
+            background-size: 2.5rem 2.5rem;
         }
 
         /* --- About Section Styles --- */
         .about-highlight {
-            background: linear-gradient(to top, rgba(253, 186, 116, 0.5) 40%, transparent 40%); /* Orange highlight */
+            background: linear-gradient(to top, var(--color-highlight-light) 40%, transparent 40%);
             padding: 0 0.25rem;
         }
         
         /* --- Product Card Styles --- */
         .product-card {
-            position: relative;
-            border: 1px solid #e5e7eb;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
             border-radius: 1.5rem;
             padding: 2rem;
             display: flex;
@@ -73,32 +83,33 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
         }
         .product-card .illustration {
             position: absolute;
             right: -1rem;
             top: 50%;
             transform: translateY(-50%);
-            opacity: 0.08;
+            opacity: 0.06;
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
         .product-card:hover .illustration {
-            opacity: 0.15;
+            opacity: 0.1;
         }
         .product-card h3 {
             font-size: 1.5rem;
             font-weight: 700;
             line-height: 1.4;
+            color: var(--color-dark);
         }
         .product-card h3 span {
-            background: linear-gradient(to top, #FDBA74 40%, transparent 40%); /* Orange highlight */
+            background: linear-gradient(to top, var(--color-highlight-light) 40%, transparent 40%);
             padding: 0 0.25rem;
         }
         .product-card.dark h3 span {
-            background: linear-gradient(to top, #E53935 40%, transparent 40%); /* Red highlight on dark card */
+            background: linear-gradient(to top, var(--color-primary) 40%, transparent 40%);
         }
         .learn-more {
             display: inline-flex;
@@ -106,9 +117,10 @@
             gap: 0.75rem;
             font-weight: 600;
             margin-top: 2rem;
+            color: var(--color-dark);
         }
         .learn-more .arrow-icon {
-            background-color: #f3f4f6;
+            background-color: #e9ecef;
             border-radius: 9999px;
             width: 2.5rem;
             height: 2.5rem;
@@ -117,19 +129,21 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         .product-card:hover .learn-more .arrow-icon {
-            background-color: #E53935;
+            background-color: var(--color-primary);
             color: white;
         }
         .product-card.dark {
-            background-color: #1f2937;
-            border-color: #374151;
-            color: #f9fafb;
+            background-color: #212529;
+            border-color: #343a40;
+            color: #f8f9fa;
         }
+        .product-card.dark h3 { color: #f8f9fa; }
+        .product-card.dark .learn-more { color: #f8f9fa; }
         .product-card.dark .learn-more .arrow-icon {
-            background-color: #374151;
+            background-color: #343a40;
         }
         .product-card.dark:hover .learn-more .arrow-icon {
-            background-color: #E53935;
+            background-color: var(--color-primary);
         }
         .product-card.dark .illustration {
             opacity: 0.1;
@@ -169,20 +183,31 @@
         .video-slide.hidden-next { transform: translateX(130%) scale(0.7); opacity: 0; z-index: 1; }
         .slider-nav { position: absolute; top: 50%; width: 100%; max-width: 600px; left: 50%; transform: translate(-50%, -50%); display: flex; justify-content: space-between; z-index: 20; pointer-events: none; }
         .slider-nav button { background-color: rgba(255, 255, 255, 0.8); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; color: #333; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(0,0,0,0.1); pointer-events: all; }
-        .slider-nav button:hover { background-color: #E53935; color: white; }
+        .slider-nav button:hover { background-color: var(--color-primary); color: white; }
 
         /* --- Calculator Tab Styles --- */
-        .calculator-tab { cursor: pointer; padding: 0.5rem 1rem; font-size: 0.875rem; sm:padding: 0.75rem 1.5rem; sm:font-size: 1rem; font-weight: 600; border-bottom: 3px solid transparent; color: #6b7280; transition: all 0.3s ease; }
-        .calculator-tab.active { color: #E53935; border-bottom-color: #E53935; }
-        .calculator-tab:hover:not(.active) { color: #111827; }
+        .calculator-tab { cursor: pointer; padding: 0.5rem 1rem; font-size: 0.875rem; sm:padding: 0.75rem 1.5rem; sm:font-size: 1rem; font-weight: 600; border-bottom: 3px solid transparent; color: #6b7280; transition: all 0.3s ease; white-space: nowrap; }
+        .calculator-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+        .calculator-tab:hover:not(.active) { color: var(--color-dark); }
+
+        /* --- Custom Slider Styles --- */
+        input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: #e9ecef; border-radius: 5px; outline: none; transition: opacity .2s; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: var(--color-primary); border-radius: 50%; cursor: pointer; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+        input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; background: var(--color-primary); border-radius: 50%; cursor: pointer; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+        
+        .slider-input-group { display: flex; align-items: center; gap: 1rem; }
+        .value-box { position: relative; }
+        .value-box .unit { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #adb5bd; pointer-events: none; }
+        .value-box input[type="number"] { width: 8rem; text-align: right; padding-left: 2rem; padding-right: 1rem; border: 1px solid #ced4da; }
+        .value-box input[type="number"]:focus { border-color: var(--color-primary); }
 
     </style>
 </head>
-<body class="text-gray-800 antialiased">
+<body class="antialiased">
 
     <!-- =========== Header =========== -->
     <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-40">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold accent-color">Arjun K Raghav</a>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#about" class="text-gray-600 hover:accent-color font-medium transition duration-300">About</a>
@@ -203,18 +228,18 @@
     </header>
 
     <main>
-        <!-- =========== NEW Hero Section =========== -->
+        <!-- =========== Hero Section =========== -->
         <section class="hero-bg">
-            <div class="container mx-auto px-6 py-32 md:py-48 text-center">
+            <div class="container mx-auto px-4 sm:px-6 py-24 md:py-48 text-center">
                 <div class="max-w-4xl mx-auto reveal">
-                    <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight">
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight" style="color: var(--color-dark);">
                         Building Generational Wealth for <span class="accent-color">Malayali Families</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-gray-600 mt-6 max-w-2xl mx-auto">
+                    <p class="text-base sm:text-lg md:text-xl mt-6 max-w-2xl mx-auto">
                         Your trusted partner in securing the financial future of families across Kerala. Expert guidance for a prosperous tomorrow.
                     </p>
                     <div class="mt-10">
-                         <a href="#products" class="bg-accent-color text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-opacity-90 transition duration-300 inline-block shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Explore Investment Solutions</a>
+                         <a href="#products" class="bg-accent-color text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:bg-opacity-90 transition duration-300 inline-block shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Explore Investment Solutions</a>
                     </div>
                 </div>
             </div>
@@ -222,33 +247,33 @@
 
         <!-- =========== About Section =========== -->
         <section id="about" class="bg-white overflow-hidden">
-            <div class="container mx-auto px-6 py-24 md:py-32 relative">
+            <div class="container mx-auto px-4 sm:px-6 py-20 md:py-32 relative">
                 <div class="grid md:grid-cols-5 gap-12 items-center relative z-10">
                     <!-- Text Content -->
                     <div class="md:col-span-3 reveal">
-                        <h2 class="text-lg font-semibold accent-color mb-3">ARJUN K RAGHAV</h2>
-                        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-                            Guiding Your Financial Future with <span class="about-highlight">Clarity & Conviction.</span>
+                        <h2 class="text-lg font-semibold accent-color mb-3">MY VISION</h2>
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight" style="color: var(--color-dark);">
+                            Empowering <span class="about-highlight">10,000 Families</span> with Financial Wisdom.
                         </h1>
-                        <p class="text-lg text-gray-600 mt-6 max-w-2xl">
-                            With over 15 years of experience, I specialize in demystifying the complexities of the market to empower my clients. My mission is to build lasting partnerships based on trust, transparency, and a shared vision for long-term wealth creation for families like yours.
+                        <p class="text-base sm:text-lg mt-6 max-w-2xl">
+                           My vision is to help Malayali families invest wisely and build lasting wealth. I aim to empower over 10,000 families in the coming years through the right financial guidance.
                         </p>
-                        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 text-gray-700">
+                        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
                             <div class="flex items-center gap-4">
                                 <i class="fas fa-chart-line text-2xl accent-color"></i>
-                                <div><span class="font-bold text-lg">15+ Years</span><br>Market Experience</div>
+                                <div><span class="font-bold text-lg" style="color: var(--color-dark);">15+ Years</span><br>Market Experience</div>
                             </div>
                             <div class="flex items-center gap-4">
                                 <i class="fas fa-users text-2xl accent-color"></i>
-                                <div><span class="font-bold text-lg">500+ Families</span><br>Successfully Guided</div>
+                                <div><span class="font-bold text-lg" style="color: var(--color-dark);">500+ Families</span><br>Successfully Guided</div>
                             </div>
                             <div class="flex items-center gap-4">
                                 <i class="fas fa-trophy text-2xl accent-color"></i>
-                                <div><span class="font-bold text-lg">Top Performer</span><br>Award 2023</div>
+                                <div><span class="font-bold text-lg" style="color: var(--color-dark);">Top Performer</span><br>Award 2023</div>
                             </div>
                             <div class="flex items-center gap-4">
                                 <i class="fas fa-bullseye text-2xl accent-color"></i>
-                                <div><span class="font-bold text-lg">98% Success</span><br>in Portfolio Growth</div>
+                                <div><span class="font-bold text-lg" style="color: var(--color-dark);">98% Success</span><br>in Portfolio Growth</div>
                             </div>
                         </div>
                     </div>
@@ -263,11 +288,11 @@
         </section>
 
         <!-- =========== Products Section =========== -->
-        <section id="products" class="py-24 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16 reveal">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">Investment Products</h2>
-                    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">Tailored solutions designed to grow and protect your family's capital.</p>
+        <section id="products" class="py-20 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12 sm:mb-16 reveal">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold" style="color: var(--color-dark);">Investment Products</h2>
+                    <p class="text-base sm:text-lg mt-4 max-w-2xl mx-auto">Tailored solutions designed to grow and protect your family's capital.</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Product Card 1 -->
@@ -305,64 +330,194 @@
         </section>
 
         <!-- =========== Calculators Section =========== -->
-        <section id="calculators" class="py-24 bg-white">
-            <div class="container mx-auto px-6">
+        <section id="calculators" class="py-20 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12 reveal">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">Financial Tools</h2>
-                    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">Empower your decisions with our easy-to-use financial calculators.</p>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold" style="color: var(--color-dark);">Financial Tools</h2>
+                    <p class="text-base sm:text-lg mt-4 max-w-2xl mx-auto">Empower your decisions with our easy-to-use financial calculators.</p>
                 </div>
                 
-                <div class="flex justify-center flex-wrap border-b border-gray-200 mb-10 reveal">
-                    <button class="calculator-tab active" data-tab="sip">SIP Calculator</button>
-                    <button class="calculator-tab" data-tab="inflation">Inflation Calculator</button>
-                    <button class="calculator-tab" data-tab="swp">SWP Calculator</button>
+                <div class="flex justify-center flex-nowrap overflow-x-auto -mx-4 sm:-mx-6 px-4 sm:px-6 border-b border-gray-200 mb-10 reveal">
+                    <button class="calculator-tab active" data-tab="sip">SIP</button>
+                    <button class="calculator-tab" data-tab="step-up-sip">Step-Up SIP</button>
+                    <button class="calculator-tab" data-tab="inflation">Inflation</button>
+                    <button class="calculator-tab" data-tab="swp">SWP</button>
                 </div>
 
                 <div class="max-w-6xl mx-auto reveal">
-                    <!-- SIP Calculator Panel -->
-                    <div id="sip-panel" class="calculator-panel">
-                        <div class="bg-gray-50/50 p-4 sm:p-8 rounded-2xl shadow-inner grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div class="space-y-6">
-                                <div><label for="sipAmount" class="font-semibold text-gray-700">Monthly Investment (₹)</label><input id="sipAmount" type="number" value="5000" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
-                                <div><label for="sipRate" class="font-semibold text-gray-700">Expected Return Rate (% p.a.)</label><input id="sipRate" type="number" value="12" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
-                                <div><label for="sipYears" class="font-semibold text-gray-700">Time Period (Years)</label><input id="sipYears" type="number" value="15" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
-                                <div class="bg-white p-6 rounded-lg mt-6 space-y-3 text-sm shadow-sm">
-                                    <p class="flex justify-between"><span>Invested Amount:</span> <span id="sipInvested" class="font-semibold">₹ 9,00,000</span></p>
-                                    <p class="flex justify-between"><span>Est. Returns:</span> <span id="sipReturns" class="font-semibold">₹ 16,22,881</span></p><hr>
-                                    <p class="flex justify-between font-bold text-base"><span>Total Value:</span> <span id="sipTotal" class="accent-color">₹ 25,22,881</span></p>
+                    <!-- Calculator Panels Wrapper -->
+                    <div class="bg-gray-50/50 p-4 sm:p-8 rounded-2xl shadow-inner">
+                        <!-- SIP Calculator Panel -->
+                        <div id="sip-panel" class="calculator-panel">
+                            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                                <div class="lg:col-span-2 space-y-6">
+                                    <!-- Inputs -->
+                                    <div>
+                                        <label for="sipAmount" class="font-semibold text-gray-700">Monthly Investment</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="sipAmountSlider" type="range" min="500" max="100000" step="500" value="5000">
+                                            <div class="value-box"><span class="unit">₹</span><input id="sipAmount" type="number" value="5000" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="sipRate" class="font-semibold text-gray-700">Expected Return Rate</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="sipRateSlider" type="range" min="1" max="30" step="0.5" value="12">
+                                            <div class="value-box"><span class="unit">%</span><input id="sipRate" type="number" value="12" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="sipYears" class="font-semibold text-gray-700">Time Period</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="sipYearsSlider" type="range" min="1" max="40" step="1" value="15">
+                                            <div class="value-box"><span class="unit">Yrs</span><input id="sipYears" type="number" value="15" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-3 flex flex-col">
+                                    <!-- Results -->
+                                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                                        <p class="text-gray-500">Total Value</p>
+                                        <p id="sipTotal" class="text-4xl sm:text-5xl font-bold accent-color my-2">₹ 25,22,881</p>
+                                        <div class="flex justify-between text-sm mt-4">
+                                            <span>Invested: <span id="sipInvested" class="font-semibold">₹ 9,00,000</span></span>
+                                            <span>Returns: <span id="sipReturns" class="font-semibold">₹ 16,22,881</span></span>
+                                        </div>
+                                    </div>
+                                    <!-- Graph -->
+                                    <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm mt-4 flex-grow min-h-[250px]"><canvas id="sipChart"></canvas></div>
                                 </div>
                             </div>
-                            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm min-h-[300px]"><canvas id="sipChart"></canvas></div>
                         </div>
-                    </div>
-                    
-                    <!-- Inflation Calculator Panel -->
-                    <div id="inflation-panel" class="calculator-panel hidden">
-                         <div class="bg-gray-50/50 p-4 sm:p-8 rounded-2xl shadow-inner grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
-                            <div class="space-y-6">
-                                <div><label class="font-semibold text-gray-700">Today's Cost (₹)</label><input type="number" placeholder="e.g., 100000" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
-                                <div><label class="font-semibold text-gray-700">Inflation Rate (% p.a.)</label><input type="number" placeholder="e.g., 6" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
-                                <div><label class="font-semibold text-gray-700">Time Period (Years)</label><input type="number" placeholder="e.g., 10" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
-                            </div>
-                            <div class="text-center bg-white p-8 rounded-lg shadow-sm">
-                                <p class="text-gray-500">Future Cost (after 10 years)</p><p class="text-3xl md:text-4xl font-bold text-gray-900 my-2">₹ 1,79,085</p><p class="text-gray-600 text-sm mt-4">The same item will cost this much in the future due to inflation.</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- SWP Calculator Panel -->
-                    <div id="swp-panel" class="calculator-panel hidden">
-                        <div class="bg-gray-50/50 p-4 sm:p-8 rounded-2xl shadow-inner grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
-                            <div class="space-y-6">
-                                <div><label class="font-semibold text-gray-700">Total Investment (₹)</label><input type="number" placeholder="e.g., 1000000" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
-                                <div><label class="font-semibold text-gray-700">Withdrawal per month (₹)</label><input type="number" placeholder="e.g., 8000" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
-                                <div><label class="font-semibold text-gray-700">Time Period (Years)</label><input type="number" placeholder="e.g., 10" class="w-full mt-2 p-3 rounded-lg border-2 border-gray-200 focus:outline-none ring-accent-color"></div>
+                        <!-- Step-Up SIP Calculator Panel -->
+                        <div id="step-up-sip-panel" class="calculator-panel hidden">
+                            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                                <div class="lg:col-span-2 space-y-6">
+                                    <div>
+                                        <label for="stepUpSipAmount" class="font-semibold text-gray-700">Initial Monthly Investment</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="stepUpSipAmountSlider" type="range" min="500" max="100000" step="500" value="5000">
+                                            <div class="value-box"><span class="unit">₹</span><input id="stepUpSipAmount" type="number" value="5000" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="stepUpSipRate" class="font-semibold text-gray-700">Expected Return Rate</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="stepUpSipRateSlider" type="range" min="1" max="30" step="0.5" value="12">
+                                            <div class="value-box"><span class="unit">%</span><input id="stepUpSipRate" type="number" value="12" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="stepUpSipYears" class="font-semibold text-gray-700">Time Period</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="stepUpSipYearsSlider" type="range" min="1" max="40" step="1" value="15">
+                                            <div class="value-box"><span class="unit">Yrs</span><input id="stepUpSipYears" type="number" value="15" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="stepUpSipIncrement" class="font-semibold text-gray-700">Annual Step-Up</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="stepUpSipIncrementSlider" type="range" min="0" max="25" step="1" value="10">
+                                            <div class="value-box"><span class="unit">%</span><input id="stepUpSipIncrement" type="number" value="10" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-3 flex flex-col">
+                                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                                        <p class="text-gray-500">Total Value</p>
+                                        <p id="stepUpSipTotal" class="text-4xl sm:text-5xl font-bold accent-color my-2">₹ 0</p>
+                                        <div class="flex justify-between text-sm mt-4">
+                                            <span>Invested: <span id="stepUpSipInvested" class="font-semibold">₹ 0</span></span>
+                                            <span>Returns: <span id="stepUpSipReturns" class="font-semibold">₹ 0</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm mt-4 flex-grow min-h-[250px]"><canvas id="stepUpSipChart"></canvas></div>
+                                </div>
                             </div>
-                            <div class="text-center bg-white p-8 rounded-lg shadow-sm">
-                                <p class="text-gray-500">Final Value</p><p class="text-3xl md:text-4xl font-bold text-gray-900 my-2">₹ 3,58,125</p>
-                                <div class="text-left mt-6 space-y-3 text-sm">
-                                    <p class="flex justify-between"><span>Total Withdrawn:</span> <span class="font-semibold">₹ 9,60,000</span></p>
-                                    <p class="flex justify-between"><span>Wealth Gained:</span> <span class="font-semibold accent-color">₹ 3,18,125</span></p>
+                        </div>
+                        
+                        <!-- Inflation Calculator Panel -->
+                        <div id="inflation-panel" class="calculator-panel hidden">
+                            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                                <div class="lg:col-span-2 space-y-6">
+                                    <div>
+                                        <label for="inflationCost" class="font-semibold text-gray-700">Today's Cost</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="inflationCostSlider" type="range" min="1000" max="1000000" step="1000" value="100000">
+                                            <div class="value-box"><span class="unit">₹</span><input id="inflationCost" type="number" value="100000" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="inflationRate" class="font-semibold text-gray-700">Inflation Rate</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="inflationRateSlider" type="range" min="1" max="20" step="0.5" value="6">
+                                            <div class="value-box"><span class="unit">%</span><input id="inflationRate" type="number" value="6" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="inflationYears" class="font-semibold text-gray-700">Time Period</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="inflationYearsSlider" type="range" min="1" max="40" step="1" value="10">
+                                            <div class="value-box"><span class="unit">Yrs</span><input id="inflationYears" type="number" value="10" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-3 flex flex-col">
+                                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                                        <p class="text-gray-500">Future Cost</p>
+                                        <p id="inflationTotal" class="text-4xl sm:text-5xl font-bold accent-color my-2">₹ 1,79,085</p>
+                                        <div class="flex justify-center text-sm mt-4">
+                                            <span>Today's Cost: <span id="inflationStartValue" class="font-semibold">₹ 1,00,000</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm mt-4 flex-grow min-h-[250px]"><canvas id="inflationChart"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SWP Calculator Panel -->
+                        <div id="swp-panel" class="calculator-panel hidden">
+                            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                                <div class="lg:col-span-2 space-y-6">
+                                    <div>
+                                        <label for="swpInvestment" class="font-semibold text-gray-700">Total Investment</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="swpInvestmentSlider" type="range" min="100000" max="5000000" step="10000" value="1000000">
+                                            <div class="value-box"><span class="unit">₹</span><input id="swpInvestment" type="number" value="1000000" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="swpWithdrawal" class="font-semibold text-gray-700">Withdrawal per month</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="swpWithdrawalSlider" type="range" min="1000" max="100000" step="1000" value="8000">
+                                            <div class="value-box"><span class="unit">₹</span><input id="swpWithdrawal" type="number" value="8000" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="swpRate" class="font-semibold text-gray-700">Expected Return Rate</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="swpRateSlider" type="range" min="1" max="20" step="0.5" value="8">
+                                            <div class="value-box"><span class="unit">%</span><input id="swpRate" type="number" value="8" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="swpYears" class="font-semibold text-gray-700">Time Period</label>
+                                        <div class="slider-input-group mt-2">
+                                            <input id="swpYearsSlider" type="range" min="1" max="40" step="1" value="10">
+                                            <div class="value-box"><span class="unit">Yrs</span><input id="swpYears" type="number" value="10" class="p-3 rounded-lg border border-gray-300 focus:outline-none ring-accent-color"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-3 flex flex-col">
+                                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                                        <p class="text-gray-500">Final Portfolio Value</p>
+                                        <p id="swpTotal" class="text-4xl sm:text-5xl font-bold accent-color my-2">₹ 0</p>
+                                        <div class="flex justify-center text-sm mt-4">
+                                            <span>Total Withdrawn: <span id="swpWithdrawn" class="font-semibold">₹ 0</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm mt-4 flex-grow min-h-[250px]"><canvas id="swpChart"></canvas></div>
                                 </div>
                             </div>
                         </div>
@@ -372,11 +527,11 @@
         </section>
 
         <!-- =========== Video Testimonials Section =========== -->
-        <section id="testimonials" class="py-24 bg-gray-50 overflow-hidden">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16 reveal">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">What My Clients Say</h2>
-                    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">Real stories from clients who have achieved their financial goals.</p>
+        <section id="testimonials" class="py-20 md:py-24 overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12 sm:mb-16 reveal">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold" style="color: var(--color-dark);">What My Clients Say</h2>
+                    <p class="text-base sm:text-lg mt-4 max-w-2xl mx-auto">Real stories from clients who have achieved their financial goals.</p>
                 </div>
                 <div class="relative reveal">
                     <div class="video-slider-container">
@@ -396,8 +551,8 @@
 
     <!-- =========== Footer =========== -->
     <footer class="bg-gray-800 text-white">
-        <div class="container mx-auto px-6 py-16 text-center">
-            <p class="text-3xl font-bold mb-4 accent-color" style="color: white;">Arjun K Raghav</p>
+        <div class="container mx-auto px-4 sm:px-6 py-16 text-center">
+            <p class="text-3xl font-bold mb-4" style="color: white;">Arjun K Raghav</p>
             <div class="flex justify-center space-x-6 mb-8">
                 <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-linkedin"></i></a>
                 <a href="#" aria-label="Twitter" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-twitter"></i></a>
@@ -415,6 +570,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const currentYear = new Date().getFullYear();
+
             // --- Scroll Animations ---
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -444,60 +601,146 @@
                 });
             });
 
-            // --- SIP Calculator Logic (Unchanged) ---
-            const sipAmountEl = document.getElementById('sipAmount');
-            const sipRateEl = document.getElementById('sipRate');
-            const sipYearsEl = document.getElementById('sipYears');
-            const sipInvestedEl = document.getElementById('sipInvested');
-            const sipReturnsEl = document.getElementById('sipReturns');
-            const sipTotalEl = document.getElementById('sipTotal');
+            function formatCurrency(value) { return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value); }
+
+            function createChart(canvas, chartInstance, chartConfig) {
+                if (chartInstance) chartInstance.destroy();
+                return new Chart(canvas, chartConfig);
+            }
+            
+            const chartDefaultOptions = {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, ticks: { callback: (v) => '₹' + (v / 100000).toFixed(1) + 'L' } }, x: { grid: { display: false } } },
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `Value: ${formatCurrency(c.raw)}` } } }
+            };
+            
+            function setupSliderSync(sliderId, inputId, callback) {
+                const slider = document.getElementById(sliderId);
+                const input = document.getElementById(inputId);
+                slider.addEventListener('input', (e) => { input.value = e.target.value; callback(); });
+                input.addEventListener('input', (e) => { slider.value = e.target.value; callback(); });
+            }
+
+            // --- SIP Calculator ---
+            const sipAmountEl = document.getElementById('sipAmount'), sipRateEl = document.getElementById('sipRate'), sipYearsEl = document.getElementById('sipYears');
+            const sipInvestedEl = document.getElementById('sipInvested'), sipReturnsEl = document.getElementById('sipReturns'), sipTotalEl = document.getElementById('sipTotal');
             const sipChartCanvas = document.getElementById('sipChart').getContext('2d');
             let sipChart;
-            function formatCurrency(value) { return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value); }
             function calculateAndDisplaySip() {
-                const P = parseFloat(sipAmountEl.value) || 0;
-                const r = parseFloat(sipRateEl.value) / 100;
-                const t = parseInt(sipYearsEl.value) || 0;
-                if (P <= 0 || r <= 0 || t <= 0) return;
-                const n = 12, i = r / n, totalMonths = t * n;
+                const P = parseFloat(sipAmountEl.value) || 0, r = parseFloat(sipRateEl.value) / 100, t = parseInt(sipYearsEl.value) || 0;
+                if (P <= 0 || r < 0 || t <= 0) return;
+                const i = r / 12, totalMonths = t * 12;
                 let futureValue = 0; const labels = [], data = [];
                 for (let year = 1; year <= t; year++) {
-                    const monthsInYear = year * 12;
-                    futureValue = P * ((Math.pow(1 + i, monthsInYear) - 1) / i) * (1 + i);
-                    labels.push(`Year ${year}`);
+                    futureValue = P * ((Math.pow(1 + i, year * 12) - 1) / i);
+                    labels.push(currentYear + year);
                     data.push(futureValue.toFixed(0));
                 }
                 const investedAmount = P * totalMonths, totalReturns = futureValue - investedAmount;
                 sipInvestedEl.textContent = formatCurrency(investedAmount);
                 sipReturnsEl.textContent = formatCurrency(totalReturns);
                 sipTotalEl.textContent = formatCurrency(futureValue);
-                updateSipChart(labels, data);
+                sipChart = createChart(sipChartCanvas, sipChart, { type: 'line', data: { labels, datasets: [{ label: 'Investment Value', data, backgroundColor: 'rgba(229, 57, 53, 0.1)', borderColor: '#E53935', borderWidth: 3, fill: true, tension: 0.4, pointBackgroundColor: '#E53935', pointRadius: 4, pointHoverRadius: 6 }] }, options: chartDefaultOptions });
             }
-            function updateSipChart(labels, data) {
-                if (sipChart) sipChart.destroy();
-                sipChart = new Chart(sipChartCanvas, {
-                    type: 'line',
-                    data: { labels, datasets: [{ label: 'Investment Value', data, backgroundColor: 'rgba(229, 57, 53, 0.1)', borderColor: '#E53935', borderWidth: 3, fill: true, tension: 0.4, pointBackgroundColor: '#E53935', pointRadius: 4, pointHoverRadius: 6 }] },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { callback: (v) => '₹' + (v / 100000).toFixed(1) + 'L' } }, x: { grid: { display: false } } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `Value: ${formatCurrency(c.raw)}` } } } }
-                });
-            }
-            [sipAmountEl, sipRateEl, sipYearsEl].forEach(el => el.addEventListener('input', calculateAndDisplaySip));
+            setupSliderSync('sipAmountSlider', 'sipAmount', calculateAndDisplaySip);
+            setupSliderSync('sipRateSlider', 'sipRate', calculateAndDisplaySip);
+            setupSliderSync('sipYearsSlider', 'sipYears', calculateAndDisplaySip);
             calculateAndDisplaySip();
+
+            // --- Step-Up SIP Calculator ---
+            const stepUpSipAmountEl = document.getElementById('stepUpSipAmount'), stepUpSipRateEl = document.getElementById('stepUpSipRate'), stepUpSipYearsEl = document.getElementById('stepUpSipYears'), stepUpSipIncrementEl = document.getElementById('stepUpSipIncrement');
+            const stepUpSipInvestedEl = document.getElementById('stepUpSipInvested'), stepUpSipReturnsEl = document.getElementById('stepUpSipReturns'), stepUpSipTotalEl = document.getElementById('stepUpSipTotal');
+            const stepUpSipChartCanvas = document.getElementById('stepUpSipChart').getContext('2d');
+            let stepUpSipChart;
+            function calculateAndDisplayStepUpSip() {
+                let P = parseFloat(stepUpSipAmountEl.value) || 0, r = parseFloat(stepUpSipRateEl.value) / 100, t = parseInt(stepUpSipYearsEl.value) || 0, annual_increment = (parseFloat(stepUpSipIncrementEl.value) || 0) / 100;
+                if (P <= 0 || r < 0 || t <= 0) return;
+                let totalInvested = 0, futureValue = 0; const labels = [], data = [];
+                for (let year = 1; year <= t; year++) {
+                    for (let month = 1; month <= 12; month++) {
+                        futureValue = futureValue * (1 + r / 12) + P;
+                    }
+                    totalInvested += P * 12;
+                    labels.push(currentYear + year);
+                    data.push(futureValue.toFixed(0));
+                    P *= (1 + annual_increment);
+                }
+                const totalReturns = futureValue - totalInvested;
+                stepUpSipInvestedEl.textContent = formatCurrency(totalInvested);
+                stepUpSipReturnsEl.textContent = formatCurrency(totalReturns);
+                stepUpSipTotalEl.textContent = formatCurrency(futureValue);
+                stepUpSipChart = createChart(stepUpSipChartCanvas, stepUpSipChart, { type: 'line', data: { labels, datasets: [{ label: 'Investment Value', data, backgroundColor: 'rgba(229, 57, 53, 0.1)', borderColor: '#E53935', borderWidth: 3, fill: true, tension: 0.4, pointBackgroundColor: '#E53935', pointRadius: 4, pointHoverRadius: 6 }] }, options: chartDefaultOptions });
+            }
+            setupSliderSync('stepUpSipAmountSlider', 'stepUpSipAmount', calculateAndDisplayStepUpSip);
+            setupSliderSync('stepUpSipRateSlider', 'stepUpSipRate', calculateAndDisplayStepUpSip);
+            setupSliderSync('stepUpSipYearsSlider', 'stepUpSipYears', calculateAndDisplayStepUpSip);
+            setupSliderSync('stepUpSipIncrementSlider', 'stepUpSipIncrement', calculateAndDisplayStepUpSip);
+            calculateAndDisplayStepUpSip();
+
+            // --- Inflation Calculator ---
+            const inflationCostEl = document.getElementById('inflationCost'), inflationRateEl = document.getElementById('inflationRate'), inflationYearsEl = document.getElementById('inflationYears');
+            const inflationStartValueEl = document.getElementById('inflationStartValue'), inflationTotalEl = document.getElementById('inflationTotal');
+            const inflationChartCanvas = document.getElementById('inflationChart').getContext('2d');
+            let inflationChart;
+            function calculateAndDisplayInflation() {
+                const cost = parseFloat(inflationCostEl.value) || 0, rate = parseFloat(inflationRateEl.value) / 100, years = parseInt(inflationYearsEl.value) || 0;
+                if (cost <= 0 || rate < 0 || years <= 0) return;
+                const labels = [], data = []; let futureCost = cost;
+                for (let year = 1; year <= years; year++) {
+                    futureCost *= (1 + rate);
+                    labels.push(currentYear + year);
+                    data.push(futureCost.toFixed(0));
+                }
+                inflationStartValueEl.textContent = formatCurrency(cost);
+                inflationTotalEl.textContent = formatCurrency(futureCost);
+                inflationChart = createChart(inflationChartCanvas, inflationChart, { type: 'line', data: { labels, datasets: [{ label: 'Future Cost', data, backgroundColor: 'rgba(229, 57, 53, 0.1)', borderColor: '#E53935', borderWidth: 3, fill: true, tension: 0.4, pointBackgroundColor: '#E53935', pointRadius: 4, pointHoverRadius: 6 }] }, options: { ...chartDefaultOptions, plugins: { ...chartDefaultOptions.plugins, tooltip: { callbacks: { label: (c) => `Future Cost: ${formatCurrency(c.raw)}` } } } } });
+            }
+            setupSliderSync('inflationCostSlider', 'inflationCost', calculateAndDisplayInflation);
+            setupSliderSync('inflationRateSlider', 'inflationRate', calculateAndDisplayInflation);
+            setupSliderSync('inflationYearsSlider', 'inflationYears', calculateAndDisplayInflation);
+            calculateAndDisplayInflation();
+
+            // --- SWP Calculator ---
+            const swpInvestmentEl = document.getElementById('swpInvestment'), swpWithdrawalEl = document.getElementById('swpWithdrawal'), swpRateEl = document.getElementById('swpRate'), swpYearsEl = document.getElementById('swpYears');
+            const swpWithdrawnEl = document.getElementById('swpWithdrawn'), swpTotalEl = document.getElementById('swpTotal');
+            const swpChartCanvas = document.getElementById('swpChart').getContext('2d');
+            let swpChart;
+            function calculateAndDisplaySwp() {
+                let P = parseFloat(swpInvestmentEl.value) || 0, W = parseFloat(swpWithdrawalEl.value) || 0, r = parseFloat(swpRateEl.value) / 100, t = parseInt(swpYearsEl.value) || 0;
+                if (P <= 0 || W <= 0 || r < 0 || t <= 0) return;
+                const i = r / 12; let totalWithdrawn = 0;
+                const labels = [], data = [];
+                let currentPrincipal = P;
+                for (let year = 1; year <= t; year++) {
+                    for (let month = 1; month <= 12; month++) {
+                        currentPrincipal = currentPrincipal * (1 + i) - W;
+                        totalWithdrawn += W;
+                    }
+                    labels.push(currentYear + year);
+                    data.push(currentPrincipal > 0 ? currentPrincipal.toFixed(0) : 0);
+                }
+                swpWithdrawnEl.textContent = formatCurrency(totalWithdrawn);
+                swpTotalEl.textContent = formatCurrency(currentPrincipal > 0 ? currentPrincipal : 0);
+                swpChart = createChart(swpChartCanvas, swpChart, { type: 'line', data: { labels, datasets: [{ label: 'Portfolio Value', data, backgroundColor: 'rgba(229, 57, 53, 0.1)', borderColor: '#E53935', borderWidth: 3, fill: true, tension: 0.4, pointBackgroundColor: '#E53935', pointRadius: 4, pointHoverRadius: 6 }] }, options: { ...chartDefaultOptions, plugins: { ...chartDefaultOptions.plugins, tooltip: { callbacks: { label: (c) => `Portfolio Value: ${formatCurrency(c.raw)}` } } } } });
+            }
+            setupSliderSync('swpInvestmentSlider', 'swpInvestment', calculateAndDisplaySwp);
+            setupSliderSync('swpWithdrawalSlider', 'swpWithdrawal', calculateAndDisplaySwp);
+            setupSliderSync('swpRateSlider', 'swpRate', calculateAndDisplaySwp);
+            setupSliderSync('swpYearsSlider', 'swpYears', calculateAndDisplaySwp);
+            calculateAndDisplaySwp();
 
             // --- Testimonial Video Slider Logic ---
             const slides = document.querySelectorAll('.video-slide');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
-            let activeIndex = 1; // Start with the second slide as active
+            let activeIndex = 1; 
 
             function updateSlider() {
                 slides.forEach((slide) => {
                     const video = slide.querySelector('video');
-                    video.pause(); 
-                    video.currentTime = 0;
+                    video.pause(); video.currentTime = 0;
                     slide.classList.remove('active', 'prev', 'next', 'hidden-prev', 'hidden-next');
                 });
-                
                 slides.forEach((slide, index) => {
                     let newIndex = (index - activeIndex + slides.length) % slides.length;
                     switch(newIndex) {
@@ -508,36 +751,22 @@
                     }
                 });
             }
-
             function setActive(index) {
                 activeIndex = (index + slides.length) % slides.length;
                 updateSlider();
             }
-
             prevBtn.addEventListener('click', () => setActive(activeIndex - 1));
             nextBtn.addEventListener('click', () => setActive(activeIndex + 1));
-
             slides.forEach((slide, index) => {
                 slide.addEventListener('click', () => setActive(index));
-                
                 const video = slide.querySelector('video');
                 slide.addEventListener('mouseenter', async () => {
                     if (slide.classList.contains('active')) {
-                        try {
-                            await video.play();
-                        } catch (error) {
-                            if (error.name !== 'AbortError') console.error('Video play failed:', error);
-                        }
+                        try { await video.play(); } catch (error) { if (error.name !== 'AbortError') console.error('Video play failed:', error); }
                     }
                 });
-                slide.addEventListener('mouseleave', () => {
-                    if (slide.classList.contains('active')) {
-                        video.pause();
-                    }
-                });
+                slide.addEventListener('mouseleave', () => { if (slide.classList.contains('active')) video.pause(); });
             });
-            
-            // Initialize slider
             updateSlider();
         });
     </script>
